@@ -1,6 +1,6 @@
 package player;
 
-public class Action
+public class Hand 
 {
 	
 }
