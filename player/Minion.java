@@ -15,7 +15,7 @@ public class Minion
 	protected int normalHP; //for when silence is played
 	protected int normalAtt; //for when silence is played
 	protected int maxHP; //initially this is the same as normalHP, special cases like injured blademaster though
-	protected int att; //initially same as normalAtt
+	protected int currAtt; //initially same as normalAtt
 	protected boolean isSilenced;
 
 	//Special Minion Attributes
@@ -30,18 +30,17 @@ public class Minion
 	protected boolean isImmune;
 	protected int spellDmg;
 	
-	//A vanilla minion (att, health, type)
-	private Minion(String name, int att, int maxHP, int cost, int typeOfMinion)
-	{
+	//Creating a new Minion instance; default is vanilla (att, HP, type)
 
+	private Minion(String name, int att, int health, int cost, int typeOfMinion, int sDmg = 0,
+		boolean taunt = false, boolean battleCry = false, boolean deathRattle = false, 
+		boolean divineShield = false, boolean enrage = false, boolean endTurn = false, 
+		boolean startTurn = false, boolean isImmune = false)
+	{
+		this.name = name;
+		this.normalAtt = att;
+		this.currAtt = normalAtt;
+		this.maxHP = 
 	}
 
-	//A minion with battlecry
-	private Minion(String name, int att, int maxHP, int cost, int typeOfMinion, boolean hasBC)
-	{
-
-	}
-
-	//A minion with deathrattle
-	private Minion(String name, int att, int maxHP, int cost, int typeOfMinion, boolean hasBC)
 }
