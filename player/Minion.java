@@ -16,6 +16,7 @@ public class Minion
 	protected int normalAtt; //for when silence is played
 	protected int maxHP; //initially this is the same as normalHP, special cases like injured blademaster though
 	protected int currAtt; //initially same as normalAtt
+	protected int currHP; 
 	protected boolean isSilenced;
 
 	//Special Minion Attributes
@@ -29,18 +30,79 @@ public class Minion
 	protected boolean hasST; //has start turn action, ex. nat pagle
 	protected boolean isImmune;
 	protected int spellDmg;
+	protected boolean frozen;
 	
 	//Creating a new Minion instance; default is vanilla (att, HP, type)
 
-	private Minion(String name, int att, int health, int cost, int typeOfMinion, int sDmg = 0,
-		boolean taunt = false, boolean battleCry = false, boolean deathRattle = false, 
-		boolean divineShield = false, boolean enrage = false, boolean endTurn = false, 
-		boolean startTurn = false, boolean isImmune = false)
+	private Minion(String name, int att, int health, int cost, int typeOfMinion, int sDmg, boolean taunt, 
+		boolean battleCry, boolean deathRattle, boolean divineShield, boolean enrage , boolean endTurn, 
+		boolean startTurn, boolean isImmune)
 	{
 		this.name = name;
 		this.normalAtt = att;
 		this.currAtt = normalAtt;
-		this.maxHP = 
+		this.maxHP = health;
+	}
+
+	protected Board getBoard() {
+		//TODO: return Board this minion is on
+	}
+	protected void takeDmg(int dmg) {
+		if (hasDS) {
+			hasDS = false;
+		}
+		else {
+			currHP -= dmg;
+		}
+	}
+
+	protected void die() {
+		//TODO: implement when a minion dies
+	}
+
+	protected void addHealth(int hpToAdd) {
+		maxHP += hpToAdd;
+	}
+
+	protected void heal(int hpToHeal) {
+		if (currHP + hpToHeal >= maxHP) {
+			currHP = maxHP;
+		}
+		else {
+			currHP += hpToHeal;
+		}
+	}
+
+	protected boolean hasDR() {
+		return hasDR;
+	}
+
+	protected boolean hasBC() {
+		return hasBC;
+	}
+
+	protected boolean hasER() {
+		return hasER;
+	}
+
+	protected boolean hasET() {
+		return hasET;
+	}
+
+	protected boolean isImmune() {
+		return isImmune;
+	}
+
+	protected int getAtt() {
+		return currAtt;
+	}
+
+	protected int getHealth() {
+		return currHP;
+	}
+
+	protected boolean isFrozen() {
+		return frozen;
 	}
 
 }

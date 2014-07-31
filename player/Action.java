@@ -33,8 +33,8 @@ public class Action
 			//throw MinionCantAttack
 		}
 		else {
-			defender.takeDmg(attacker.getAtt());
-			attacker.takeDmg(attacker.get);
+			defender.takeDmg(attacker.getAtt()); //check for DS here or in Minion class?
+			attacker.takeDmg(attacker.getAtt());
 			if (defender.getHealth() <= 0) {
 				defender.die();
 				if (defender.hasDR()) {
@@ -82,7 +82,7 @@ public class Action
 	TODO: still need extra case for divine spirit and blessing of champions, the x2 att/hp multipliers, Humility (1 att), Equality
 
 	*/
-	private Action(boolean spell, Minion target, int maxHPchange, int currHPchange, int attChange, boolean givesTaunt = false, boolean givesDS=false, boolean givesCharge = true)
+	private Action(boolean spell, Minion target, int maxHPchange, int currHPchange, int attChange, boolean givesTaunt, boolean givesDS, boolean givesCharge)
 	{
 		isSpell = true;
 		//implement spell-checking
@@ -129,7 +129,7 @@ public class Action
 	/* Minion-affecting non-spell action
 	
 	*/
-	private Action(boolean spell, Minion target, int maxHPchange, int currHPchange, int attChange, boolean givesTaunt=false, boolean givesDS=false)
+	private Action(boolean spell, Minion target, int maxHPchange, int currHPchange, int attChange, boolean givesTaunt, boolean givesDS)
 	{
 		isSpell = false;
 

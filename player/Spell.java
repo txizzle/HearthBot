@@ -1,6 +1,6 @@
 package player;
 
-protected class Spell
+public class Spell
 {
 	
 }

@@ -12,4 +12,8 @@ public class Board
 	protected int opponentSD;
 
 	private 
+
+	public static void Main(string[] args) {
+		System.out.println("Welcome to HearthBot!");
+	}
 }
