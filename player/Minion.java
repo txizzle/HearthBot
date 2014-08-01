@@ -18,6 +18,8 @@ public class Minion
 	protected int currAtt; //initially same as normalAtt
 	protected int currHP; 
 	protected boolean isSilenced;
+	protected int controller;
+	protected Board thisBoard;
 
 	//Special Minion Attributes
 	protected boolean hasCharge;
@@ -44,8 +46,11 @@ public class Minion
 		this.maxHP = health;
 	}
 
+	protected int getPlayer() {
+		return controller;
+	}
 	protected Board getBoard() {
-		//TODO: return Board this minion is on
+		return thisBoard;
 	}
 	protected void takeDmg(int dmg) {
 		if (hasDS) {
@@ -73,6 +78,12 @@ public class Minion
 		}
 	}
 
+	protected int getSD() {
+		if (isSilenced == false) {
+			return spellDmg;
+		} 
+		return 0;
+	}
 	protected boolean hasDR() {
 		return hasDR;
 	}
@@ -103,6 +114,12 @@ public class Minion
 
 	protected boolean isFrozen() {
 		return frozen;
+	}
+
+	protected Card ToCard() {
+		//TODO: add card conversion (pull from database? construct completely new card?)
+		Card temp = new Card();
+		return temp;
 	}
 
 }

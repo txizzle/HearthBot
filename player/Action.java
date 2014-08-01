@@ -82,14 +82,14 @@ public class Action
 	TODO: still need extra case for divine spirit and blessing of champions, the x2 att/hp multipliers, Humility (1 att), Equality
 
 	*/
-	private Action(boolean spell, Minion target, int maxHPchange, int currHPchange, int attChange, boolean givesTaunt, boolean givesDS, boolean givesCharge)
+	private Action(Player caster, boolean spell, Minion target, int maxHPchange, int currHPchange, int attChange, boolean givesTaunt, boolean givesDS, boolean givesCharge)
 	{
 		isSpell = true;
 		//implement spell-checking
 
 		//Spell that damages minion
 		if (currHPchange < 0) {
-			currHPchange -= target.Board.
+			currHPchange -= target.getBoard().getSD(caster.getOtherPlayer());
 			target.takeDmg(-currHPchange);
 			if (target.getHealth() <= 0) {
 				target.die();
