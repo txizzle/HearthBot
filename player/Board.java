@@ -1,5 +1,8 @@
 package player;
 
+
+import java.util.Scanner;
+
 public class Board 
 {
 	protected static final int PLAYER = 0;
@@ -15,9 +18,19 @@ public class Board
 	protected int opponentSD;
 
 	public static void main(String[] args) {
+		Scanner user_input = new Scanner( System.in );
 		System.out.println("Welcome to HearthBot!");
+		System.out.println("What is your name?");
+		String name = user_input.next();
+		System.out.println("Well met, " + name + "!");
 	}
 
+	public Board(Player us, Player them) {
+		playerBoard = new Minion[7];
+		opponentBoard = new Minion[7];
+		playerSD = 0;
+		opponentSD = 0;
+	}
 
 	protected Player getPlayer(int playerNumber) {
 		if (playerNumber == 0) {
@@ -60,5 +73,12 @@ public class Board
 			}
 		}
 		return playerSD;
+	}
+
+	public void printBoard() {
+		System.out.println("Your board: ");
+		for (int i = 0; i < 7; i ++) {
+			playerBoard[i].ToString();
+		}
 	}
 }
