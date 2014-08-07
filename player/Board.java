@@ -23,6 +23,10 @@ public class Board
 		System.out.println("What is your name?");
 		String name = user_input.next();
 		System.out.println("Well met, " + name + "!");
+		player1 = new Player(name, 0, 0);
+		player2 = new Player("Opponent", 2, 1);
+		Board currBoard = new Board(player1, player2);
+		currBoard.printBoard();
 	}
 
 	public Board(Player us, Player them) {
@@ -79,6 +83,10 @@ public class Board
 		System.out.println("Your board: ");
 		for (int i = 0; i < 7; i ++) {
 			playerBoard[i].ToString();
+		}
+		System.out.println("Their board: ");
+		for (int i = 0; i < 7; i ++) {
+			opponentBoard[i].ToString();
 		}
 	}
 }
