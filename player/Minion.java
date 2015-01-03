@@ -1,8 +1,6 @@
 package player;
 
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.Map;
+import java.util.*;
 
 public class Minion
 {
@@ -12,6 +10,8 @@ public class Minion
 	private static final int DRAGON = 2;
 	private static final int MURLOC = 3;
 	private static final int PIRATE = 4;
+	private static final int DEMON = 5;
+	private static final int MECH = 6;
 
 	//Universal Minion Declarations
 	protected String name;
@@ -26,6 +26,7 @@ public class Minion
 	protected Board thisBoard;
 
 	//Special Minion Attributes
+	protected int type;
 	protected boolean hasCharge;
 	protected boolean hasTaunt;
 	protected boolean hasBC; //battlecry
@@ -38,19 +39,71 @@ public class Minion
 	protected int spellDmg;
 	protected boolean frozen;
 	
+	//Minion Library
+	protected static Hashtable<String, int[]> minionDict = makeDict();
 	//Creating a new Minion instance; default is vanilla (att, HP, type)
 
-	protected Minion(String name, int att, int health, int cost, int typeOfMinion, int sDmg, int taunt, 
+	protected static Hashtable<String, int[]> makeDict() {
+		Hashtable<String, int[]> minionLibrary = new Hashtable<String, int[]>();
+		int[] goldshire = {1,2,1,0,0,1,0,0,0,0,0,0,0,0};
+		int[] wisp =      {1,1,0,0,0,0,0,0,0,0,0,0,0,0};
+		int[] frostwolf = {2,2,2,0,0,1,0,0,0,0,0,0,0,0};
+		int[] kobold =    {2,2,2,0,1,0,0,0,0,0,0,0,0,0};
+		int[] crocolisk = {2,3,2,1,0,0,0,0,0,0,0,0,0,0};
+		int[] yeti =      {4,5,4,0,0,0,0,0,0,0,0,0,0,0};
+		int[] senjin =    {3,5,4,0,0,1,0,0,0,0,0,0,0,0};
+		minionLibrary.put("Goldshire Footman", goldshire);
+		minionLibrary.put("Wisp", wisp);
+		minionLibrary.put("Frostwolf Grunt", frostwolf);
+		minionLibrary.put("Kobold Geomancer", kobold);
+		minionLibrary.put("River Crocolisk", crocolisk);
+		minionLibrary.put("Chillwind Yeti", yeti);
+		minionLibrary.put("Sen'jin Shieldmasta", senjin);
+		return minionLibrary;
+	}
+	protected Minion(String name, int att, int health, int cost, int typeOfMinion, int sDmg, int taunt, int charge,
 		int battleCry, int deathRattle, int divineShield, int enrage , int endTurn, 
-		int startTurn, int isImmune)
+		int startTurn, int immune)
 	{
-		this.name = name;
-		this.normalAtt = att;
-		this.currAtt = normalAtt;
-		this.maxHP = health;
-		this.currHP = health;
+		name = name;
+		normalAtt = att;
+		currAtt = normalAtt;
+		maxHP = health;
+		currHP = health;
+		cost = cost;
+		type = typeOfMinion;
+		spellDmg = sDmg;
+		hasTaunt = taunt == 1;
+		hasCharge = charge == 1;
+		hasBC = battleCry == 1;
+		hasDR = deathRattle == 1;
+		hasDS = divineShield == 1;
+		hasER = enrage == 1;
+		hasET = endTurn == 1;
+		hasST = startTurn == 1;
+		isImmune = immune == 1;
 	}
 
+	protected Minion(String dictName) 
+	{
+		int[] minionValues = minionDict.get(dictName);
+		this.name = dictName;
+		this.normalAtt = minionValues[0];
+		this.currAtt = minionValues[0];
+		this.maxHP = minionValues[1];
+		this.currHP = minionValues[1];
+		cost = minionValues[2];
+		spellDmg = minionValues[4];
+		hasTaunt = minionValues[5] == 1;
+		hasCharge = minionValues[6] == 1;
+		hasBC = minionValues[7] == 1;
+		hasDR = minionValues[8] == 1;
+		hasDS = minionValues[9] == 1;
+		hasER = minionValues[10] == 1;
+		hasET = minionValues[11] == 1;
+		hasST = minionValues[12] == 1;
+		isImmune = minionValues[13] == 1;
+	}
 	protected int getPlayer() {
 		return controller;
 	}
@@ -128,7 +181,7 @@ public class Minion
 	}
 
 	public String ToString() {
-		String outputMinion = "Name: " + name + "\nAttack: " + currAtt + "\nHealth: " + currHP;
+		String outputMinion = " Name: " + name + "\n Attack: " + currAtt + "\n Health: " + currHP;
 		return outputMinion;
 
 	}

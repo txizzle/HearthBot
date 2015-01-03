@@ -50,16 +50,22 @@ public class Board
 		System.out.println("Welcome to HearthBot!\n");
 		System.out.println("What is your name?");
 		String name = user_input.next();
-		System.out.println("Well met, " + name + "!");
+		System.out.println("\nWell met, " + name + "!");
 		System.out.println("What class do you wish to play?");
 		System.out.println("Druid: 0, Hunter: 1, Mage: 2, Paladin: 3, Priest: 4, Rogue: 5, Shaman: 6, Warlock: 7, Warrior: 8");
 		int playerClass = Integer.parseInt(user_input.next());
 		player1 = new Player(name, playerClass, 0);
 		player2 = new Player("Opponent", 2, 1);
+		System.out.println("\n"+player1.ToString());
+		System.out.println(player2.ToString());
+		
 		Board testBoard = new Board(player1, player2);
-		Minion GoldshireFootman = new Minion("Goldshire Footman", 1, 2, 1, 0, 0, 1, 
-		0, 0, 0, 0, 0, 0, 0);
-		testBoard.addMinion(GoldshireFootman, 0, 0);
+		Minion goldshireFootman = new Minion("Goldshire Footman");
+		Minion chillwindYeti = new Minion("Chillwind Yeti");
+		testBoard.addMinion(goldshireFootman, 0, 0);
+		testBoard.addMinion(chillwindYeti, 3, 1);
+		testBoard.printBoard();
+		Action test = new Action(chillwindYeti, goldshireFootman);
 		testBoard.printBoard();
 	}
 
@@ -148,19 +154,19 @@ public class Board
 				System.out.println("Position " + i + ": Null");
 			}
 			else {
-				System.out.println("Position " + i);
+				System.out.println("Position " + i + ":");
 				System.out.println(this.playerBoard[i].ToString());
 			}
 			
 		}
 		System.out.println("\n");
-		System.out.println("Their board: ");
+		System.out.println("Opponent's board: ");
 		for (int i = 0; i < 7; i ++) {
 			if (opponentBoard[i] == null) {
 				System.out.println("Position  " + i + ": Null");
 			}
 			else {
-				System.out.println("Position " + i);
+				System.out.println("Position " + i + ":");
 				System.out.println(this.opponentBoard[i].ToString());
 			}
 		}

@@ -26,7 +26,7 @@ public class Action
 	protected boolean isSpell;
 
 	//Minion attacking enemy minion
-	private Action(Minion attacker, Minion defender)
+	public Action(Minion attacker, Minion defender)
 	{
 		isSpell = false;
 		if (attacker.getAtt() <= 0) {
@@ -34,7 +34,7 @@ public class Action
 		}
 		else {
 			defender.takeDmg(attacker.getAtt()); //check for DS here or in Minion class?
-			attacker.takeDmg(attacker.getAtt());
+			attacker.takeDmg(defender.getAtt());
 			if (defender.getHealth() <= 0) {
 				defender.die();
 				if (defender.hasDR()) {
@@ -53,7 +53,7 @@ public class Action
 	}
 
 	//Minion attacking enemy hero
-	private Action(Minion attacker, Player hero) 
+	public Action(Minion attacker, Player hero) 
 	{
 		isSpell = false;
 		if (attacker.getAtt() <= 0) {
@@ -82,7 +82,7 @@ public class Action
 	TODO: still need extra case for divine spirit and blessing of champions, the x2 att/hp multipliers, Humility (1 att), Equality
 
 	*/
-	private Action(Player caster, boolean spell, Minion target, int maxHPchange, int currHPchange, int attChange, boolean givesTaunt, boolean givesDS, boolean givesCharge)
+	public Action(Player caster, boolean spell, Minion target, int maxHPchange, int currHPchange, int attChange, boolean givesTaunt, boolean givesDS, boolean givesCharge)
 	{
 		isSpell = true;
 		//implement spell-checking
@@ -129,14 +129,14 @@ public class Action
 	/* Minion-affecting non-spell action
 	
 	*/
-	private Action(boolean spell, Minion target, int maxHPchange, int currHPchange, int attChange, boolean givesTaunt, boolean givesDS)
+	public Action(boolean spell, Minion target, int maxHPchange, int currHPchange, int attChange, boolean givesTaunt, boolean givesDS)
 	{
 		isSpell = false;
 
 	}
 
 	//Returning a minion to hand
-	private Action(Minion target, Hand hand) 
+	public Action(Minion target, Hand hand) 
 	{
 		hand.AddCard(target.ToCard());
 		target.getBoard().removeMinion(target); //NOT target.die()! Because we don't want to trigger deathrattle

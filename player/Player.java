@@ -11,7 +11,8 @@ public class Player
 	protected static final int SHAMAN = 6;
 	protected static final int WARLOCK = 7;
 	protected static final int WARRIOR = 8;
-	
+	protected static final String[] classNames = {"Druid", "Hunter", "Mage", "Paladin", "Priest", "Rogue", "Shaman", "Warlock", "Warrior"};
+
 	protected int maxHP;
 	protected int currHP;
 	protected String name;
@@ -53,5 +54,10 @@ public class Player
 
 	public void win() {
 		System.out.println(name + " wins!");
+	}
+
+	public String ToString() {
+		String toReturn = "Player " + (playerNumber+1) + " Statistics:\nName: " + name + "\nClass: " + classNames[heroClass] + "\nHealth: " + currHP + "\n";
+		return toReturn;
 	}
 }
