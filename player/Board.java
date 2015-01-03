@@ -17,21 +17,64 @@ public class Board
 	protected int playerSD; //spelldamage total
 	protected int opponentSD;
 
-	public static void main(String[] args) {
+	private static Board instance;
+
+	static Board initialize(String name)
+	{
+		if (instance == null)
+		{
+			Player us = new Player(name, 0, 0);
+			Player them = new Player("CPU", 0, 1);
+			instance = new Board(us, them);
+			return instance;
+		}
+		else
+        {
+            return instance;
+        }
+	}
+
+	public static void main(String[] args) 
+	{
+		Board initialBoard = new Board();
+		initialBoard.play();
+		//player1 = new Player(name, 0, 0);
+		//player2 = new Player("Opponent", 2, 1);
+		//Board currBoard = new Board(player1, player2);
+		
+	}
+
+	public void play() 
+	{
 		Scanner user_input = new Scanner( System.in );
-		System.out.println("Welcome to HearthBot!");
+		System.out.println("Welcome to HearthBot!\n");
 		System.out.println("What is your name?");
 		String name = user_input.next();
 		System.out.println("Well met, " + name + "!");
-		player1 = new Player(name, 0, 0);
+		System.out.println("What class do you wish to play?");
+		System.out.println("Druid: 0, Hunter: 1, Mage: 2, Paladin: 3, Priest: 4, Rogue: 5, Shaman: 6, Warlock: 7, Warrior: 8");
+		int playerClass = Integer.parseInt(user_input.next());
+		player1 = new Player(name, playerClass, 0);
 		player2 = new Player("Opponent", 2, 1);
-		Board currBoard = new Board(player1, player2);
-		currBoard.printBoard();
+		Board testBoard = new Board(player1, player2);
+		Minion GoldshireFootman = new Minion("Goldshire Footman", 1, 2, 1, 0, 0, 1, 
+		0, 0, 0, 0, 0, 0, 0);
+		testBoard.addMinion(GoldshireFootman, 0, 0);
+		testBoard.printBoard();
+	}
+
+	public Board() {
+		playerBoard = new Minion[7];
+		opponentBoard = new Minion[7];
+		playerSD = 0;
+		opponentSD = 0;
 	}
 
 	public Board(Player us, Player them) {
 		playerBoard = new Minion[7];
 		opponentBoard = new Minion[7];
+		player1 = us;
+		player2 = them;
 		playerSD = 0;
 		opponentSD = 0;
 	}
@@ -64,6 +107,25 @@ public class Board
 		}
 	}
 
+	public void addMinion(Minion toAdd, int place, int player) {
+		if (player == 0) {
+			if (playerBoard[place] == null) {
+				playerBoard[place] = toAdd;
+			}
+			else {
+				//TODO: throw minionPlaceConflictException
+			}
+		}
+		else {
+			if (opponentBoard[place] == null) {
+				opponentBoard[place] = toAdd;
+			}
+			else {
+				//TODO: throw minionPlaceConflictException
+			}
+		}
+	}
+
 	public int getSD(Player caster) {
 		playerSD = 0;
 		if (caster == player1) {
@@ -80,13 +142,27 @@ public class Board
 	}
 
 	public void printBoard() {
-		System.out.println("Your board: ");
+		System.out.println("\nYour board: ");
 		for (int i = 0; i < 7; i ++) {
-			playerBoard[i].ToString();
+			if (playerBoard[i] == null) {
+				System.out.println("Position " + i + ": Null");
+			}
+			else {
+				System.out.println("Position " + i);
+				System.out.println(this.playerBoard[i].ToString());
+			}
+			
 		}
+		System.out.println("\n");
 		System.out.println("Their board: ");
 		for (int i = 0; i < 7; i ++) {
-			opponentBoard[i].ToString();
+			if (opponentBoard[i] == null) {
+				System.out.println("Position  " + i + ": Null");
+			}
+			else {
+				System.out.println("Position " + i);
+				System.out.println(this.opponentBoard[i].ToString());
+			}
 		}
 	}
 }

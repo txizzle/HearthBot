@@ -19,11 +19,14 @@ public class Player
 	protected int playerNumber;
 	protected Board board;
 
-	private Player(String nameOfHero, int classOfHero, int playerNumb)
+
+	public Player(String nameOfHero, int classOfHero, int playerNumb)
 	{
-		this.heroClass = classOfHero;
-		this.name = nameOfHero;
-		this.playerNumber = playerNumb;
+		heroClass = classOfHero;
+		name = nameOfHero;
+		playerNumber = playerNumb;
+		maxHP = 30;
+		currHP = 30;
 	}
 
 	private void setBoard(Board heroBoard) {

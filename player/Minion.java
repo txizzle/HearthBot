@@ -1,5 +1,9 @@
 package player;
 
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.Map;
+
 public class Minion
 {
 	//Minion Types
@@ -36,14 +40,15 @@ public class Minion
 	
 	//Creating a new Minion instance; default is vanilla (att, HP, type)
 
-	private Minion(String name, int att, int health, int cost, int typeOfMinion, int sDmg, boolean taunt, 
-		boolean battleCry, boolean deathRattle, boolean divineShield, boolean enrage , boolean endTurn, 
-		boolean startTurn, boolean isImmune)
+	protected Minion(String name, int att, int health, int cost, int typeOfMinion, int sDmg, int taunt, 
+		int battleCry, int deathRattle, int divineShield, int enrage , int endTurn, 
+		int startTurn, int isImmune)
 	{
 		this.name = name;
 		this.normalAtt = att;
 		this.currAtt = normalAtt;
 		this.maxHP = health;
+		this.currHP = health;
 	}
 
 	protected int getPlayer() {
@@ -120,6 +125,12 @@ public class Minion
 		//TODO: add card conversion (pull from database? construct completely new card?)
 		Card temp = new Card();
 		return temp;
+	}
+
+	public String ToString() {
+		String outputMinion = "Name: " + name + "\nAttack: " + currAtt + "\nHealth: " + currHP;
+		return outputMinion;
+
 	}
 
 }
